@@ -30,6 +30,8 @@ class ApiService {
 
   private async request<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
     const url = `${API_BASE_URL}${endpoint}`;
+    console.log('🌐 Fazendo requisição para:', url);
+    
     const headers: Record<string, string> = {
       'Content-Type': 'application/json',
       ...(options.headers as Record<string, string>),
@@ -40,26 +42,50 @@ class ApiService {
       headers.Authorization = `Bearer ${token}`;
     }
 
-    const response = await fetch(url, {
-      ...options,
-      headers,
-    });
+    console.log('📋 Headers:', headers);
+    console.log('📋 Options:', options);
 
-    if (!response.ok) {
-      throw new Error(`API Error: ${response.status} ${response.statusText}`);
+    try {
+      const response = await fetch(url, {
+        ...options,
+        headers,
+      });
+
+      console.log('📊 Response status:', response.status);
+      console.log('📊 Response ok:', response.ok);
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error('❌ API Error Response:', errorText);
+        throw new Error(`API Error: ${response.status} ${response.statusText} - ${errorText}`);
+      }
+
+      const data = await response.json();
+      console.log('✅ Response data:', data);
+      return data;
+    } catch (error) {
+      console.error('❌ Request error:', error);
+      throw error;
     }
-
-    return response.json();
   }
 
   async login(email: string, password: string): Promise<{ token: string }> {
-    const response = await this.request<{ token: string }>('/api/auth/login', {
-      method: 'POST',
-      body: JSON.stringify({ email, password }),
-    });
+    console.log('🔍 Tentando login com:', { email, password });
+    console.log('🔍 API_BASE_URL:', API_BASE_URL);
     
-    this.setToken(response.token);
-    return response;
+    try {
+      const response = await this.request<{ token: string }>('/api/auth/login', {
+        method: 'POST',
+        body: JSON.stringify({ email, password }),
+      });
+      
+      console.log('✅ Login bem-sucedido:', response);
+      this.setToken(response.token);
+      return response;
+    } catch (error) {
+      console.error('❌ Erro no login:', error);
+      throw error;
+    }
   }
 
   async getClientes(): Promise<ApiResponse> {
