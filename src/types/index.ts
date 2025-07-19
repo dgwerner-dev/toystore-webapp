@@ -1,43 +1,42 @@
-export interface Venda {
-  data: string;
-  valor: number;
-}
-
-export interface ClienteInfo {
-  nomeCompleto: string;
-  detalhes: {
-    email: string;
-    nascimento: string;
-  };
-}
-
-export interface ClienteEstatisticas {
-  vendas: Venda[];
-}
-
-export interface ClienteRaw {
-  info: ClienteInfo;
-  duplicado?: {
-    nomeCompleto: string;
-  };
-  estatisticas: ClienteEstatisticas;
-}
-
-export interface ClienteNormalizado {
+// Tipos para a API
+export interface Cliente {
   id: string;
-  nomeCompleto: string;
+  nome: string;
   email: string;
   nascimento: string;
   vendas: Venda[];
-  totalVendas: number;
-  mediaValorVenda: number;
-  frequenciaCompras: number;
-  primeiraLetraFaltante: string;
+}
+
+export interface Venda {
+  id: string;
+  clienteId: string;
+  valor: number;
+  data: string;
+}
+
+// Novo formato da API
+export interface ClienteAPI {
+  info: {
+    nomeCompleto: string;
+    detalhes: {
+      email: string;
+      nascimento: string;
+    };
+  };
+  duplicado?: {
+    nomeCompleto: string;
+  };
+  estatisticas: {
+    vendas: Array<{
+      data: string;
+      valor: number;
+    }>;
+  };
 }
 
 export interface ApiResponse {
   data: {
-    clientes: ClienteRaw[];
+    clientes: ClienteAPI[];
   };
   meta: {
     registroTotal: number;
@@ -48,21 +47,31 @@ export interface ApiResponse {
   };
 }
 
+export interface ClienteForm {
+  nome: string;
+  email: string;
+  nascimento: string;
+}
+
 export interface EstatisticasResponse {
   vendasPorDia: Array<{
     data: string;
     total: number;
   }>;
-  clientes: ClienteNormalizado[];
+  clientes: Cliente[];
 }
 
-export interface LoginForm {
-  email: string;
-  password: string;
+// Tipos para estatísticas
+export interface ClienteStats {
+  cliente: Cliente;
+  totalVendas: number;
+  mediaValor: number;
+  frequenciaCompras: number;
+  primeiraLetraFaltante: string;
 }
 
-export interface ClienteForm {
-  nomeCompleto: string;
-  email: string;
-  nascimento: string;
+export interface ClienteDestaque {
+  maiorVolume: ClienteStats | null;
+  maiorMedia: ClienteStats | null;
+  maiorFrequencia: ClienteStats | null;
 } 

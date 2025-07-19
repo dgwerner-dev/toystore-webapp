@@ -69,7 +69,7 @@ class ApiService {
     try {
       const response = await this.request<ApiResponse>('/api/clientes');
       
-      // Normalizar clientes
+      // Normalizar clientes da API
       const clientesNormalizados = response.data.clientes.map(normalizarCliente);
       
       // Agrupar vendas por dia
