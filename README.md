@@ -58,7 +58,7 @@ Crie um arquivo `.env.local` na raiz do projeto com as seguintes variáveis:
 
 ```bash
 # API Configuration
-NEXT_PUBLIC_API_BASE_URL=http://localhost:3000
+NEXT_PUBLIC_API_BASE_URL=http://localhost:3002
 
 # Authentication (for demo purposes)
 NEXT_PUBLIC_DEMO_EMAIL=admin@toystore.com
@@ -142,7 +142,7 @@ A aplicação espera uma API com os seguintes endpoints:
 - Senha: `admin123`
 
 ### Portas
-- **API (Backend)**: `http://localhost:3000`
+- **API (Backend)**: `http://localhost:3002`
 - **Frontend**: `http://localhost:3001`
 
 ### Formato de Resposta da API de Clientes

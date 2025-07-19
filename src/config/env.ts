@@ -1,7 +1,7 @@
 // Configurações de ambiente da aplicação
 export const env = {
   // API Configuration
-  API_BASE_URL: process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:3000',
+  API_BASE_URL: process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:3002',
   
   // Authentication
   DEMO_EMAIL: process.env.NEXT_PUBLIC_DEMO_EMAIL || 'admin@toystore.com',
