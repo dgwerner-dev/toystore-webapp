@@ -41,9 +41,7 @@ cd toystore-webapp
 npm install
 ```
 
-3. Configure as variáveis de ambiente:
-   - Copie o arquivo `.env.example` para `.env.local`
-   - Ajuste a URL da API se necessário (padrão: `http://localhost:3000`)
+3. Certifique-se de que a API está rodando na porta 3000
 
 4. Execute a aplicação:
 ```bash
@@ -52,21 +50,13 @@ npm run dev
 
 5. Acesse a aplicação em `http://localhost:3001`
 
-## Variáveis de Ambiente
+## Configuração
 
-Crie um arquivo `.env.local` na raiz do projeto com as seguintes variáveis:
+A aplicação está configurada para conectar com a API na porta 3000.
 
-```bash
-# API Configuration
-NEXT_PUBLIC_API_BASE_URL=http://localhost:3000
-
-# Authentication (for demo purposes)
-NEXT_PUBLIC_DEMO_EMAIL=admin@toystore.com
-NEXT_PUBLIC_DEMO_PASSWORD=admin123
-
-# Environment
-NODE_ENV=development
-```
+**Credenciais de acesso:**
+- Email: `admin@toystore.com`
+- Senha: `admin123`
 
 ## Estrutura do Projeto
 

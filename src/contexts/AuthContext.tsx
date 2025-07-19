@@ -29,9 +29,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     try {
       await apiService.login(email, password);
       setIsAuthenticated(true);
-    } catch (error) {
-      console.error('Erro no login:', error);
-      throw error;
+    } catch {
+      throw new Error('Email ou senha inválidos');
     }
   };
 

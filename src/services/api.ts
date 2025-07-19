@@ -1,8 +1,6 @@
-import { env } from '@/config/env';
+import { API_BASE_URL } from '@/config/env';
 import { ApiResponse, ClienteForm, EstatisticasResponse } from '@/types';
 import { agruparVendasPorDia, normalizarCliente } from '@/utils/normalize';
-
-const API_BASE_URL = env.API_BASE_URL;
 
 class ApiService {
   private token: string | null = null;
@@ -30,6 +28,7 @@ class ApiService {
 
   private async request<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
     const url = `${API_BASE_URL}${endpoint}`;
+    
     const headers: Record<string, string> = {
       'Content-Type': 'application/json',
       ...(options.headers as Record<string, string>),
@@ -46,7 +45,7 @@ class ApiService {
     });
 
     if (!response.ok) {
-      throw new Error(`API Error: ${response.status} ${response.statusText}`);
+      throw new Error(`Erro na API: ${response.status}`);
     }
 
     return response.json();
