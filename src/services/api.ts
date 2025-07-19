@@ -1,9 +1,8 @@
+import { env } from '@/config/env';
 import { ApiResponse, ClienteForm, EstatisticasResponse } from '@/types';
 import { agruparVendasPorDia, normalizarCliente } from '@/utils/normalize';
 
-import { config } from '../../config.example';
-
-const API_BASE_URL = config.apiBaseUrl;
+const API_BASE_URL = env.API_BASE_URL;
 
 class ApiService {
   private token: string | null = null;
@@ -81,7 +80,7 @@ class ApiService {
         vendasPorDia,
         clientes: clientesNormalizados,
       };
-    } catch (error) {
+    } catch {
       // Se a API não estiver disponível, usar dados mock para demonstração
       console.warn('API não disponível, usando dados de demonstração');
       

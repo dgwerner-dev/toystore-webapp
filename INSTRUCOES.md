@@ -8,8 +8,10 @@ npm install
 ```
 
 ### 2. Configuração
-- Edite o arquivo `config.example.ts` se necessário
-- A URL padrão da API é `http://localhost:3000`
+- Crie um arquivo `.env.local` na raiz do projeto
+- Configure a URL da API (padrão: `http://localhost:3000`)
+- Veja o exemplo em `env.example`
+- Certifique-se de que a API está rodando na porta 3000
 
 ### 3. Execução
 ```bash
@@ -18,7 +20,7 @@ npm run dev
 
 ### 4. Acesso
 - Abra `http://localhost:3001` no navegador
-- Use as credenciais de demonstração:
+- Use as credenciais da API:
   - Email: `admin@toystore.com`
   - Senha: `admin123`
 

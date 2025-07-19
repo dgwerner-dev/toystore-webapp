@@ -41,9 +41,9 @@ cd toystore-webapp
 npm install
 ```
 
-3. Configure a URL da API:
-   - Edite o arquivo `config.example.ts` se necessário
-   - A URL padrão da API é `http://localhost:3000`
+3. Configure as variáveis de ambiente:
+   - Copie o arquivo `.env.example` para `.env.local`
+   - Ajuste a URL da API se necessário (padrão: `http://localhost:3000`)
 
 4. Execute a aplicação:
 ```bash
@@ -51,6 +51,22 @@ npm run dev
 ```
 
 5. Acesse a aplicação em `http://localhost:3001`
+
+## Variáveis de Ambiente
+
+Crie um arquivo `.env.local` na raiz do projeto com as seguintes variáveis:
+
+```bash
+# API Configuration
+NEXT_PUBLIC_API_BASE_URL=http://localhost:3000
+
+# Authentication (for demo purposes)
+NEXT_PUBLIC_DEMO_EMAIL=admin@toystore.com
+NEXT_PUBLIC_DEMO_PASSWORD=admin123
+
+# Environment
+NODE_ENV=development
+```
 
 ## Estrutura do Projeto
 
@@ -117,9 +133,17 @@ A aplicação trata automaticamente dados desorganizados da API:
 
 A aplicação espera uma API com os seguintes endpoints:
 
-- `POST /auth/login` - Autenticação
-- `GET /clientes` - Listagem de clientes
-- `POST /clientes` - Adicionar cliente
+- `POST /api/auth/login` - Autenticação
+- `GET /api/clientes` - Listagem de clientes
+- `POST /api/clientes` - Adicionar cliente
+
+### Credenciais de Login
+- Email: `admin@toystore.com`
+- Senha: `admin123`
+
+### Portas
+- **API (Backend)**: `http://localhost:3000`
+- **Frontend**: `http://localhost:3001`
 
 ### Formato de Resposta da API de Clientes
 ```json

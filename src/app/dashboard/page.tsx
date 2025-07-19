@@ -39,7 +39,7 @@ export default function Dashboard() {
           clientes: clientesNormalizados,
         });
         setIsDemoMode(true);
-      } catch (mockError) {
+              } catch {
         setError('Erro ao carregar dados. Verifique se a API está rodando.');
         console.error('Erro ao carregar dados:', err);
       }
