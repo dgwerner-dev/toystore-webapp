@@ -9,9 +9,9 @@ npm install
 
 ### 2. Configuração
 - Crie um arquivo `.env.local` na raiz do projeto
-- Configure a URL da API (padrão: `http://localhost:3002`)
+- Configure a URL da API (padrão: `http://localhost:3000`)
 - Veja o exemplo em `env.example`
-- Certifique-se de que a API está rodando na porta 3002
+- Certifique-se de que a API está rodando na porta 3000
 
 ### 3. Execução
 ```bash
