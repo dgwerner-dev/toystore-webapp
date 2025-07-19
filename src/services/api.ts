@@ -53,7 +53,7 @@ class ApiService {
   }
 
   async login(email: string, password: string): Promise<{ token: string }> {
-    const response = await this.request<{ token: string }>('/auth/login', {
+    const response = await this.request<{ token: string }>('/api/auth/login', {
       method: 'POST',
       body: JSON.stringify({ email, password }),
     });
@@ -63,12 +63,12 @@ class ApiService {
   }
 
   async getClientes(): Promise<ApiResponse> {
-    return this.request<ApiResponse>('/clientes');
+    return this.request<ApiResponse>('/api/clientes');
   }
 
   async getEstatisticas(): Promise<EstatisticasResponse> {
     try {
-      const response = await this.request<ApiResponse>('/clientes');
+      const response = await this.request<ApiResponse>('/api/clientes');
       
       // Normalizar clientes
       const clientesNormalizados = response.data.clientes.map(normalizarCliente);
@@ -98,7 +98,7 @@ class ApiService {
   }
 
   async adicionarCliente(cliente: ClienteForm): Promise<void> {
-    await this.request('/clientes', {
+    await this.request('/api/clientes', {
       method: 'POST',
       body: JSON.stringify(cliente),
     });
