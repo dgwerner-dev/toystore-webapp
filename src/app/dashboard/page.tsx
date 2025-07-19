@@ -6,17 +6,28 @@ import { ClientesStats } from '@/components/ClientesStats';
 import { DemoWarning } from '@/components/DemoWarning';
 import { Layout } from '@/components/Layout';
 import { VendasChart } from '@/components/VendasChart';
+import { useAuth } from '@/contexts/AuthContext';
 import { apiService } from '@/services/api';
 import { EstatisticasResponse } from '@/types';
 import { Plus, RefreshCw } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 export default function Dashboard() {
+  const { isAuthenticated, loading: authLoading } = useAuth();
+  const router = useRouter();
   const [data, setData] = useState<EstatisticasResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [showForm, setShowForm] = useState(false);
   const [isDemoMode, setIsDemoMode] = useState(false);
+
+  // Proteção de rota
+  useEffect(() => {
+    if (!authLoading && !isAuthenticated) {
+      router.push('/');
+    }
+  }, [isAuthenticated, authLoading, router]);
 
   const fetchData = async () => {
     try {
@@ -39,7 +50,7 @@ export default function Dashboard() {
           clientes: clientesNormalizados,
         });
         setIsDemoMode(true);
-              } catch {
+      } catch {
         setError('Erro ao carregar dados. Verifique se a API está rodando.');
         console.error('Erro ao carregar dados:', err);
       }
@@ -49,13 +60,29 @@ export default function Dashboard() {
   };
 
   useEffect(() => {
-    fetchData();
-  }, []);
+    if (isAuthenticated) {
+      fetchData();
+    }
+  }, [isAuthenticated]);
 
   const handleClienteAdded = () => {
     setShowForm(false);
     fetchData(); // Recarregar dados após adicionar cliente
   };
+
+  // Mostrar loading enquanto verifica autenticação
+  if (authLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600"></div>
+      </div>
+    );
+  }
+
+  // Redirecionar se não estiver autenticado
+  if (!isAuthenticated) {
+    return null; // Será redirecionado pelo useEffect
+  }
 
   if (loading) {
     return (
