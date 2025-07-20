@@ -1,0 +1,6 @@
+# Esta pasta contém as imagens do projeto
+# 
+# Para adicionar uma nova imagem:
+# 1. Salve a imagem nesta pasta
+# 2. Referencie no README.md usando: ![Descrição](docs/images/nome-da-imagem.png)
+# 3. Commit e push das mudanças 

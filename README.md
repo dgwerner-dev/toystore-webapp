@@ -2,6 +2,15 @@
 
 Sistema completo de gestão de clientes e vendas com dashboard interativo, construído com Next.js, TypeScript, Tailwind CSS e Prisma.
 
+![Dashboard ToyStore](docs/images/dashboard-screenshot.png)
+
+*Dashboard interativo com estatísticas de vendas, gráficos e gestão de clientes*
+
+[![Next.js](https://img.shields.io/badge/Next.js-15-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.3-38B2AC?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com/)
+[![Prisma](https://img.shields.io/badge/Prisma-5.0-2D3748?style=for-the-badge&logo=prisma)](https://www.prisma.io/)
+
 ## 🚀 Funcionalidades Implementadas
 
 ### ✅ **Autenticação Completa**
@@ -117,6 +126,15 @@ npm run dev
   - 🟣 Maior Frequência de Compras
 - **Gráfico de Vendas**: Por dia com tooltips
 - **Responsivo**: Adapta-se a diferentes telas
+
+### **Preview da Interface**
+
+| Funcionalidade | Descrição |
+|----------------|-----------|
+| ![Dashboard](docs/images/dashboard-screenshot.png) | **Dashboard Principal** - Visão geral com estatísticas e gráficos |
+| **Gestão de Clientes** | Lista completa com busca, adição, edição e exclusão |
+| **Autenticação** | Sistema de login seguro com JWT |
+| **Responsividade** | Interface adaptativa para mobile, tablet e desktop |
 
 ### **Gestão de Clientes (`/clientes`)**
 - **Lista Completa**: Com busca por nome/email
