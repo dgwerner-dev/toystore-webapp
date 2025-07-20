@@ -82,20 +82,6 @@ export default function ClientesPage() {
               </div>
             </div>
           </div>
-          
-          <div className="mt-6 p-4 bg-blue-50 rounded-lg">
-            <h5 className="font-medium text-blue-900 mb-2">Funcionalidades Implementadas:</h5>
-            <ul className="text-sm text-blue-800 space-y-1">
-              <li>• ✅ Listagem de clientes com dados normalizados da API</li>
-              <li>• ✅ Exibição da primeira letra faltante do alfabeto</li>
-              <li>• ✅ Estatísticas de vendas por cliente</li>
-              <li>• ✅ Interface responsiva e moderna</li>
-              <li>• ✅ Tratamento de dados aninhados da API</li>
-              <li>• ✅ Botões de edição e exclusão (funcionais)</li>
-              <li>• ✅ Campo de busca por nome/email</li>
-              <li>• ✅ Modal para adicionar novos clientes</li>
-            </ul>
-          </div>
         </div>
       </div>
     </Layout>
