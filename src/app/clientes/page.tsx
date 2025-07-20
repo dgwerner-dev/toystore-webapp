@@ -10,6 +10,41 @@ export default function ClientesPage() {
     email: '',
     nascimento: ''
   });
+  const [searchTerm, setSearchTerm] = useState('');
+
+  // Dados de exemplo dos clientes
+  const clientesExemplo = [
+    {
+      nome: 'Ana Beatriz',
+      email: 'ana.b@example.com',
+      nascimento: '1992-05-01',
+      totalVendas: 200,
+      compras: 2,
+      letraFaltante: 'Q'
+    },
+    {
+      nome: 'Carlos Eduardo',
+      email: 'cadu@example.com',
+      nascimento: '1987-08-15',
+      totalVendas: 0,
+      compras: 0,
+      letraFaltante: 'F'
+    },
+    {
+      nome: 'Maria Silva',
+      email: 'maria.silva@example.com',
+      nascimento: '1995-03-20',
+      totalVendas: 150,
+      compras: 1,
+      letraFaltante: 'X'
+    }
+  ];
+
+  // Filtrar clientes baseado no termo de busca
+  const filteredClientes = clientesExemplo.filter(cliente =>
+    cliente.nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    cliente.email.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   const handleAddCliente = async () => {
     try {
@@ -54,7 +89,7 @@ export default function ClientesPage() {
               Gestão de Clientes
             </h2>
             <p className="text-gray-600">
-              Visualize e gerencie todos os clientes cadastrados
+              Visualize e gerencie todos os clientes cadastrados ({clientesExemplo.length} clientes)
             </p>
           </div>
           <button 
@@ -71,62 +106,52 @@ export default function ClientesPage() {
             <input
               type="text"
               placeholder="Buscar por nome ou email..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
               className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 text-gray-900"
             />
           </div>
         </div>
 
         <div className="bg-white rounded-lg shadow border p-6">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">Lista de Clientes</h3>
+          <h3 className="text-lg font-semibold text-gray-900 mb-4">
+            Lista de Clientes {searchTerm && `(${filteredClientes.length} encontrados)`}
+          </h3>
           
-          {/* Exemplo de cliente com funcionalidades de edição */}
-          <div className="space-y-4">
-            <div className="border rounded-lg p-4">
-              <div className="flex items-center justify-between">
-                <div>
-                  <h4 className="font-medium text-gray-900">Ana Beatriz</h4>
-                  <p className="text-sm text-gray-500">ana.b@example.com</p>
-                  <p className="text-sm text-gray-500">Nascimento: 01/05/1992</p>
-                  <div className="mt-2 flex items-center space-x-4">
-                    <span className="text-sm text-gray-600">Total: R$ 200,00</span>
-                    <span className="text-sm text-gray-600">2 compras</span>
-                    <span className="text-sm text-gray-600">Letra faltante: <span className="bg-gray-100 px-2 py-1 rounded">Q</span></span>
+          {filteredClientes.length === 0 ? (
+            <div className="text-center py-8">
+              <p className="text-gray-500">
+                {searchTerm ? 'Nenhum cliente encontrado com os filtros aplicados.' : 'Nenhum cliente cadastrado.'}
+              </p>
+            </div>
+          ) : (
+            <div className="space-y-4">
+              {filteredClientes.map((cliente, index) => (
+                <div key={index} className="border rounded-lg p-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h4 className="font-medium text-gray-900">{cliente.nome}</h4>
+                      <p className="text-sm text-gray-500">{cliente.email}</p>
+                      <p className="text-sm text-gray-500">Nascimento: {new Date(cliente.nascimento).toLocaleDateString('pt-BR')}</p>
+                      <div className="mt-2 flex items-center space-x-4">
+                        <span className="text-sm text-gray-600">Total: R$ {cliente.totalVendas.toFixed(2)}</span>
+                        <span className="text-sm text-gray-600">{cliente.compras} compras</span>
+                        <span className="text-sm text-gray-600">Letra faltante: <span className="bg-gray-100 px-2 py-1 rounded">{cliente.letraFaltante}</span></span>
+                      </div>
+                    </div>
+                    <div className="flex space-x-2">
+                      <button className="p-2 text-gray-400 hover:text-blue-600 transition-colors" title="Editar cliente">
+                        ✏️ Editar
+                      </button>
+                      <button className="p-2 text-gray-400 hover:text-red-600 transition-colors" title="Excluir cliente">
+                        🗑️ Excluir
+                      </button>
+                    </div>
                   </div>
                 </div>
-                <div className="flex space-x-2">
-                  <button className="p-2 text-gray-400 hover:text-blue-600 transition-colors" title="Editar cliente">
-                    ✏️ Editar
-                  </button>
-                  <button className="p-2 text-gray-400 hover:text-red-600 transition-colors" title="Excluir cliente">
-                    🗑️ Excluir
-                  </button>
-                </div>
-              </div>
+              ))}
             </div>
-            
-            <div className="border rounded-lg p-4">
-              <div className="flex items-center justify-between">
-                <div>
-                  <h4 className="font-medium text-gray-900">Carlos Eduardo</h4>
-                  <p className="text-sm text-gray-500">cadu@example.com</p>
-                  <p className="text-sm text-gray-500">Nascimento: 15/08/1987</p>
-                  <div className="mt-2 flex items-center space-x-4">
-                    <span className="text-sm text-gray-600">Total: R$ 0,00</span>
-                    <span className="text-sm text-gray-600">0 compras</span>
-                    <span className="text-sm text-gray-600">Letra faltante: <span className="bg-gray-100 px-2 py-1 rounded">F</span></span>
-                  </div>
-                </div>
-                <div className="flex space-x-2">
-                  <button className="p-2 text-gray-400 hover:text-blue-600 transition-colors" title="Editar cliente">
-                    ✏️ Editar
-                  </button>
-                  <button className="p-2 text-gray-400 hover:text-red-600 transition-colors" title="Excluir cliente">
-                    🗑️ Excluir
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
+          )}
         </div>
 
         {/* Modal de Adicionar Cliente */}
