@@ -1,9 +1,8 @@
 import { Cliente, ClienteAPI, ClienteDestaque, ClienteStats } from '@/types';
 
-// Função para normalizar dados da API
 export function normalizarCliente(clienteAPI: ClienteAPI): Cliente {
   return {
-    id: Math.random().toString(36).substr(2, 9), // ID temporário
+    id: Math.random().toString(36).substr(2, 9),
     nome: clienteAPI.info.nomeCompleto,
     email: clienteAPI.info.detalhes.email,
     nascimento: clienteAPI.info.detalhes.nascimento,
@@ -16,7 +15,6 @@ export function normalizarCliente(clienteAPI: ClienteAPI): Cliente {
   };
 }
 
-// Função para agrupar vendas por dia
 export function agruparVendasPorDia(clientes: Cliente[]) {
   const vendasPorDia: { [key: string]: number } = {};
 
@@ -32,7 +30,6 @@ export function agruparVendasPorDia(clientes: Cliente[]) {
     .sort((a, b) => new Date(a.data).getTime() - new Date(b.data).getTime());
 }
 
-// Função para calcular estatísticas de um cliente
 export function calcularEstatisticasCliente(cliente: Cliente): ClienteStats {
   const totalVendas = cliente.vendas.reduce((sum, venda) => sum + venda.valor, 0);
   const mediaValor = cliente.vendas.length > 0 ? totalVendas / cliente.vendas.length : 0;
@@ -48,7 +45,6 @@ export function calcularEstatisticasCliente(cliente: Cliente): ClienteStats {
   };
 }
 
-// Função para encontrar a primeira letra do alfabeto que não aparece no nome
 export function encontrarPrimeiraLetraFaltante(nome: string): string {
   const alfabeto = 'abcdefghijklmnopqrstuvwxyz';
   const nomeLower = nome.toLowerCase();
@@ -59,10 +55,9 @@ export function encontrarPrimeiraLetraFaltante(nome: string): string {
     }
   }
   
-  return '-'; // Todas as letras estão presentes
+  return '-';
 }
 
-// Função para calcular destaques dos clientes
 export function calcularDestaques(clientes: Cliente[]): ClienteDestaque {
   const stats = clientes.map(calcularEstatisticasCliente);
   

@@ -23,6 +23,23 @@ class ApiService {
     this.token = null;
     if (typeof window !== 'undefined') {
       localStorage.removeItem('auth_token');
+      localStorage.removeItem('user_data');
+      localStorage.removeItem('last_login');
+      sessionStorage.clear();
+    }
+  }
+
+  async logout(): Promise<void> {
+    try {
+      const token = this.getToken();
+      if (token) {
+        // Endpoint para invalidar token no servidor (futuro)
+        // await this.request('/api/auth/logout', { method: 'POST' });
+      }
+    } catch (error) {
+      console.warn('Erro ao invalidar token no servidor:', error);
+    } finally {
+      this.clearToken();
     }
   }
 
@@ -68,11 +85,7 @@ class ApiService {
   async getEstatisticas(): Promise<EstatisticasResponse> {
     try {
       const response = await this.request<ApiResponse>('/api/clientes');
-      
-      // Normalizar clientes da API
       const clientesNormalizados = response.data.clientes.map(normalizarCliente);
-      
-      // Agrupar vendas por dia
       const vendasPorDia = agruparVendasPorDia(clientesNormalizados);
       
       return {
@@ -80,12 +93,9 @@ class ApiService {
         clientes: clientesNormalizados,
       };
     } catch {
-      // Se a API não estiver disponível, usar dados mock para demonstração
       console.warn('API não disponível, usando dados de demonstração');
       
-      // Importação dinâmica para evitar problemas de SSR
       const { mockApiResponse } = await import('@/data/mockData');
-      
       const clientesNormalizados = mockApiResponse.data.clientes.map(normalizarCliente);
       const vendasPorDia = agruparVendasPorDia(clientesNormalizados);
       
@@ -100,6 +110,19 @@ class ApiService {
     await this.request('/api/clientes', {
       method: 'POST',
       body: JSON.stringify(cliente),
+    });
+  }
+
+  async editarCliente(id: string, cliente: ClienteForm): Promise<void> {
+    await this.request(`/api/clientes/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify(cliente),
+    });
+  }
+
+  async excluirCliente(id: string): Promise<void> {
+    await this.request(`/api/clientes/${id}`, {
+      method: 'DELETE',
     });
   }
 }
