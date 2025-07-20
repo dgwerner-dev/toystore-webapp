@@ -1,187 +1,237 @@
 # ToyStore Dashboard
 
-Uma aplicação web moderna para gerenciamento de clientes e visualização de estatísticas de vendas, construída com Next.js, TypeScript e Tailwind CSS.
+Sistema completo de gestão de clientes e vendas com dashboard interativo, construído com Next.js, TypeScript, Tailwind CSS e Prisma.
 
-## Funcionalidades
+## 🚀 Funcionalidades Implementadas
 
-- 🔐 **Autenticação simples** - Sistema de login com validação
-- 👥 **Gestão de clientes** - Adicionar clientes com nome, email e data de nascimento
-- 📊 **Dashboard interativo** - Visualização de estatísticas em tempo real
-- 📈 **Gráficos de vendas** - Gráfico de linha mostrando vendas por dia
-- 🏆 **Destaques visuais** - Clientes com maior volume, média e frequência de compras
-- 🔤 **Letra faltante** - Identificação da primeira letra do alfabeto ausente no nome
-- 🧹 **Normalização de dados** - Tratamento de dados desorganizados da API
+### ✅ **Autenticação Completa**
+- Sistema de login com JWT
+- Proteção de rotas
+- Logout funcional com confirmação
+- Persistência de sessão
 
-## Tecnologias Utilizadas
+### ✅ **CRUD Completo de Clientes**
+- **Criar**: Modal para adicionar novos clientes
+- **Ler**: Lista com busca e filtros
+- **Atualizar**: Modal de edição inline
+- **Excluir**: Confirmação antes de excluir
+- Validação de formulários (nome, email, data)
 
-- **Next.js 14** - Framework React com App Router
-- **TypeScript** - Tipagem estática
-- **Tailwind CSS** - Framework CSS utilitário
-- **Recharts** - Biblioteca de gráficos
-- **React Hook Form** - Gerenciamento de formulários
-- **Zod** - Validação de esquemas
-- **Lucide React** - Ícones
+### ✅ **Dashboard Interativo**
+- **Cards de Destaque**: Maior volume, média e frequência
+- **Gráfico de Vendas**: Por dia com Recharts
+- **Estatísticas em Tempo Real**: Cálculos automáticos
+- **Letra Faltante**: Primeira letra do alfabeto ausente no nome
 
-## Pré-requisitos
+### ✅ **Sistema de Dados**
+- Banco SQLite com Prisma ORM
+- Dados de exemplo pré-carregados
+- Normalização automática de dados da API
+- Fallback para dados mock quando API indisponível
 
-- Node.js 18+ 
+## 🛠️ Tecnologias
+
+- **Frontend**: Next.js 15, React 18, TypeScript
+- **Styling**: Tailwind CSS
+- **Gráficos**: Recharts
+- **Backend**: Next.js API Routes
+- **Database**: SQLite + Prisma ORM
+- **Autenticação**: JWT + bcrypt
+- **Validação**: React Hook Form + Zod
+
+## 📋 Pré-requisitos
+
+- Node.js 18+
 - npm ou yarn
-- API ToyStore rodando localmente na porta 3000
 
-## Instalação
+## ⚡ Instalação e Execução
 
-1. Clone o repositório:
+### 1. Clone e Instale
 ```bash
-git clone <url-do-repositorio>
+git clone https://github.com/dgwerner-dev/toystore-webapp.git
 cd toystore-webapp
-```
-
-2. Instale as dependências:
-```bash
 npm install
 ```
 
-3. Certifique-se de que a API está rodando na porta 3000
+### 2. Configure o Banco de Dados
+```bash
+# Gera o cliente Prisma
+npx prisma generate
 
-4. Execute a aplicação:
+# Cria o banco e aplica o schema
+npx prisma db push
+
+# Popula com dados de exemplo
+npx tsx scripts/seed.ts
+```
+
+### 3. Execute a Aplicação
 ```bash
 npm run dev
 ```
 
-5. Acesse a aplicação em `http://localhost:3001`
+### 4. Acesse
+- **URL**: http://localhost:3001
+- **Email**: admin@example.com
+- **Senha**: admin123
 
-## Configuração
-
-A aplicação está configurada para conectar com a API na porta 3000.
-
-**Credenciais de acesso:**
-- Email: `admin@toystore.com`
-- Senha: `admin123`
-
-## Estrutura do Projeto
+## 🏗️ Estrutura do Projeto
 
 ```
-src/
-├── app/                    # App Router do Next.js
-│   ├── dashboard/         # Página do dashboard
-│   ├── globals.css        # Estilos globais
-│   ├── layout.tsx         # Layout principal
-│   └── page.tsx           # Página inicial (login)
-├── components/            # Componentes React
-│   ├── ClienteForm.tsx    # Formulário de cliente
-│   ├── ClientesList.tsx   # Lista de clientes
-│   ├── ClientesStats.tsx  # Estatísticas dos clientes
-│   ├── Layout.tsx         # Layout da aplicação
-│   ├── LoginForm.tsx      # Formulário de login
-│   └── VendasChart.tsx    # Gráfico de vendas
-├── contexts/              # Contextos React
-│   └── AuthContext.tsx    # Contexto de autenticação
-├── services/              # Serviços da aplicação
-│   └── api.ts            # Serviço de comunicação com API
-├── types/                 # Definições de tipos TypeScript
-│   └── index.ts          # Tipos da aplicação
-└── utils/                 # Utilitários
-    └── normalize.ts       # Funções de normalização de dados
+├── src/
+│   ├── app/                    # App Router (Next.js 15)
+│   │   ├── dashboard/         # Dashboard principal
+│   │   ├── clientes/          # Gestão de clientes
+│   │   └── page.tsx           # Página de login
+│   ├── components/            # Componentes React
+│   │   ├── Layout.tsx         # Layout com navegação
+│   │   └── LoginForm.tsx      # Formulário de login
+│   ├── contexts/              # Contextos React
+│   │   └── AuthContext.tsx    # Autenticação global
+│   ├── services/              # Serviços
+│   │   └── api.ts            # Comunicação com API
+│   ├── types/                 # Tipos TypeScript
+│   │   └── index.ts          # Definições de tipos
+│   ├── utils/                 # Utilitários
+│   │   └── normalize.ts       # Normalização de dados
+│   └── data/                  # Dados mock
+│       └── mockData.ts        # Dados de exemplo
+├── pages/api/                 # API Routes
+│   ├── auth/login.ts         # Autenticação
+│   └── clientes/             # CRUD de clientes
+├── prisma/                   # Configuração do banco
+│   ├── schema.prisma         # Schema do banco
+│   └── dev.db               # Banco SQLite
+├── lib/                      # Bibliotecas
+│   └── auth.ts              # JWT helpers
+└── scripts/                  # Scripts utilitários
+    └── seed.ts              # População do banco
 ```
 
-## Funcionalidades Detalhadas
+## 🎯 Funcionalidades Detalhadas
 
-### Autenticação
-- Formulário de login com validação
-- Persistência de token no localStorage
-- Redirecionamento automático após login
+### **Dashboard (`/dashboard`)**
+- **Cards de Destaque**: 
+  - 🟢 Maior Volume de Vendas
+  - 🔵 Maior Valor Médio
+  - 🟣 Maior Frequência de Compras
+- **Gráfico de Vendas**: Por dia com tooltips
+- **Responsivo**: Adapta-se a diferentes telas
 
-### Gestão de Clientes
-- Formulário modal para adicionar clientes
-- Validação de campos obrigatórios
-- Integração com API para persistência
+### **Gestão de Clientes (`/clientes`)**
+- **Lista Completa**: Com busca por nome/email
+- **Adicionar Cliente**: Modal com validação
+- **Editar Cliente**: Modal inline
+- **Excluir Cliente**: Com confirmação
+- **Estatísticas**: Total vendas, compras, letra faltante
 
-### Dashboard
-- **Estatísticas destacadas:**
-  - Cliente com maior volume de vendas
-  - Cliente com maior média de valor por venda
-  - Cliente com maior frequência de compras
+### **Autenticação**
+- **Login**: admin@example.com / admin123
+- **Proteção**: Rotas protegidas automaticamente
+- **Logout**: Com confirmação e limpeza de dados
+- **Persistência**: Token salvo no localStorage
 
-- **Gráfico de vendas:**
-  - Visualização de vendas por dia
-  - Formatação de valores em reais
-  - Responsivo e interativo
+## 🔧 Configuração da API
 
-- **Lista de clientes:**
-  - Tabela com informações completas
-  - Estatísticas individuais por cliente
-  - Campo de letra faltante no nome
+### **Endpoints Implementados**
+- `POST /api/auth/login` - Login com JWT
+- `GET /api/clientes` - Listar clientes
+- `POST /api/clientes` - Criar cliente
+- `PUT /api/clientes/[id]` - Atualizar cliente
+- `DELETE /api/clientes/[id]` - Excluir cliente
 
-### Normalização de Dados
-A aplicação trata automaticamente dados desorganizados da API:
-- Remove campos duplicados
-- Extrai dados aninhados
-- Calcula estatísticas derivadas
-- Identifica letras faltantes no alfabeto
-
-## API Esperada
-
-A aplicação espera uma API com os seguintes endpoints:
-
-- `POST /api/auth/login` - Autenticação
-- `GET /api/clientes` - Listagem de clientes
-- `POST /api/clientes` - Adicionar cliente
-
-### Credenciais de Login
-- Email: `admin@toystore.com`
-- Senha: `admin123`
-
-### Portas
-- **API (Backend)**: `http://localhost:3000`
-- **Frontend**: `http://localhost:3001`
-
-### Formato de Resposta da API de Clientes
-```json
+### **Formato de Dados**
+```typescript
+// Cliente
 {
-  "data": {
-    "clientes": [
-      {
-        "info": {
-          "nomeCompleto": "Ana Beatriz",
-          "detalhes": {
-            "email": "ana.b@example.com",
-            "nascimento": "1992-05-01"
-          }
-        },
-        "estatisticas": {
-          "vendas": [
-            { "data": "2024-01-01", "valor": 150 },
-            { "data": "2024-01-02", "valor": 50 }
-          ]
-        }
-      }
-    ]
-  },
-  "meta": {
-    "registroTotal": 1,
-    "pagina": 1
-  },
-  "redundante": {
-    "status": "ok"
-  }
+  id: string;
+  nome: string;
+  email: string;
+  nascimento: string;
+  vendas: Venda[];
+}
+
+// Venda
+{
+  id: string;
+  clienteId: string;
+  valor: number;
+  data: string;
 }
 ```
 
-## Scripts Disponíveis
+## 🎨 Interface e UX
 
-- `npm run dev` - Executa em modo de desenvolvimento
-- `npm run build` - Gera build de produção
-- `npm run start` - Executa build de produção
-- `npm run lint` - Executa linter
+### **Design System**
+- **Cores**: Verde (sucesso), Azul (info), Roxo (destaque)
+- **Tipografia**: Hierarquia clara com Tailwind
+- **Componentes**: Modais, cards, formulários consistentes
+- **Feedback**: Loading states, mensagens de erro/sucesso
 
-## Contribuição
+### **Responsividade**
+- **Mobile**: Layout adaptativo
+- **Tablet**: Grid responsivo
+- **Desktop**: Layout otimizado
 
-1. Faça um fork do projeto
-2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
-3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
-4. Push para a branch (`git push origin feature/AmazingFeature`)
-5. Abra um Pull Request
+## 🧪 Dados de Exemplo
 
-## Licença
+O sistema vem com dados pré-carregados:
+- **5 clientes** com informações completas
+- **14 vendas** distribuídas entre os clientes
+- **Usuário admin** para login
 
-Este projeto está sob a licença MIT. Veja o arquivo `LICENSE` para mais detalhes.
+## 🚀 Scripts Disponíveis
+
+```bash
+npm run dev          # Desenvolvimento (porta 3001)
+npm run build        # Build de produção
+npm run start        # Executar build
+npm run lint         # Verificar código
+npx prisma studio    # Interface do banco
+```
+
+## 🔍 Para o Avaliador
+
+### **Como Testar**
+
+1. **Instalação Rápida**:
+   ```bash
+   git clone https://github.com/dgwerner-dev/toystore-webapp.git
+   cd toystore-webapp
+   npm install
+   npx prisma generate && npx prisma db push
+   npx tsx scripts/seed.ts
+   npm run dev
+   ```
+
+2. **Login**: admin@example.com / admin123
+
+3. **Funcionalidades para Testar**:
+   - ✅ Dashboard com gráficos e estatísticas
+   - ✅ Adicionar/editar/excluir clientes
+   - ✅ Busca e filtros
+   - ✅ Logout funcional
+   - ✅ Responsividade
+
+### **Pontos de Destaque**
+
+- **CRUD Completo**: Todas as operações funcionais
+- **Autenticação Real**: JWT + banco de dados
+- **UX Polida**: Loading states, confirmações, feedback
+- **Código Limpo**: Estrutura natural e bem organizada
+- **Dados Reais**: Banco SQLite com dados de exemplo
+
+### **Tecnologias Modernas**
+- Next.js 15 com App Router
+- TypeScript para type safety
+- Prisma ORM para banco de dados
+- Tailwind CSS para styling
+- Recharts para visualização
+
+## 📝 Licença
+
+MIT License - veja o arquivo LICENSE para detalhes.
+
+---
+
+**Desenvolvido com ❤️ usando tecnologias modernas**
